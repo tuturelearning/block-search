@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { Search } from '@element-plus/icons-vue';
+import { ElMessage } from 'element-plus';
 import { getSingleBlock } from './api';
 import blockHead from './components/blockHead.vue';
 import blockTable from './components/blockTable.vue';
@@ -70,28 +71,44 @@ const showTx = computed(() => {
 
 const searchHandler = () => {
   loading.value = true;
-  getSingleBlock(hashValue.value).then((res) => {
-    if (res.status === 200) {
-      let ignore = [
-        'next_block',
-        'n_tx',
-        'main_chain',
-        'mrkl_root',
-        'prev_block',
-        'block_index',
-      ];
+  getSingleBlock(hashValue.value)
+    .then((res) => {
+      if (res.status === 200) {
+        let ignore = [
+          'next_block',
+          'n_tx',
+          'main_chain',
+          'mrkl_root',
+          'prev_block',
+          'block_index',
+        ];
 
-      const { tx, ...tablesValue } = res?.data;
-      ignore.forEach((item) => {
-        if (tablesValue[item]) {
-          delete tablesValue[item];
-        }
-      });
-      blockTableValue.value = tablesValue;
-      blockTxValue.value = tx;
+        const { tx, ...tablesValue } = res?.data;
+        ignore.forEach((item) => {
+          if (tablesValue[item]) {
+            delete tablesValue[item];
+          }
+        });
+        blockTableValue.value = tablesValue;
+        blockTxValue.value = tx;
+        loading.value = false;
+      } else {
+        loading.value = false;
+        ElMessage({
+          type: 'warning',
+          message: '查询失败',
+          showClose: true,
+        });
+      }
+    })
+    .catch((err) => {
       loading.value = false;
-    }
-  });
+      ElMessage({
+        type: 'error',
+        message: '查询失败',
+        showClose: true,
+      });
+    });
 };
 </script>
 
