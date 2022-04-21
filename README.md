@@ -9,7 +9,7 @@
 
 1. `blocklet dev install`
 2. `blocklet dev start`
-3. blocklet run
+3. open `localhost:8090`
 
 ## Technology stack
 
