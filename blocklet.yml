@@ -9,7 +9,7 @@ did: z8ia5exZjUCbakYz9eynKwj2CdGXrWCpGdxPM
 main: dist
 author:
   name: yyy
-  email: yyy@yyy.mail
+  email: yyy@mail.com
 repository:
   type: git
   url: git+https://github.com/blocklet/create-blocklet.git
