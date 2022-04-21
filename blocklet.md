@@ -13,6 +13,7 @@ block search
 
 1. `blocklet dev install`
 2. `blocklet dev start`
+3. blocklet run
 
 ## Technology stack
 
